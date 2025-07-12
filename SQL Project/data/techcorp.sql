@@ -19,3 +19,14 @@ from Customers as c
 join Orders o ON o.customer_id = c.customer_id
 group by c.customer_id
 ;
+
+-- 3. Employees with > 4 resolved ticket support
+select e.first_name,
+e.last_name,
+count(s.ticket_id)
+FROM employees e
+join supporttickets s on e.employee_id = s.employee_id
+WHERE s.status = 'resolved'
+group by e.employee_id
+having count(s.ticket_id) > 4
+;
