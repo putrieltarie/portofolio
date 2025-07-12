@@ -43,3 +43,11 @@ WHERE od.order_detail_id is NULL
 select sum(quantity*unit_price)
 from orderdetails
 ;
+
+-- 6. Find categories with an average price greater than $500!
+with cte_avg_price as(
+select category, avg(price) rerata
+from products
+group by category)
+SELECT*FROM cte_avg_price WHERE rerata > 500
+;
