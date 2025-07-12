@@ -38,3 +38,8 @@ FROM products p
 left join orderdetails od on od.product_id = p.product_id
 WHERE od.order_detail_id is NULL
 ;
+
+-- 5. Total Revenue From All Product
+select sum(quantity*unit_price)
+from orderdetails
+;
