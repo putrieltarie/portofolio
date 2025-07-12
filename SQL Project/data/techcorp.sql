@@ -51,3 +51,7 @@ from products
 group by category)
 SELECT*FROM cte_avg_price WHERE rerata > 500
 ;
+
+-- 7. Find customers who have placed at least one order with a total amount greater than $1000!
+select*from customers
+where customer_id in (select total_amount>1000 from orders);
