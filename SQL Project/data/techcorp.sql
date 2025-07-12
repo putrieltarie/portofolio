@@ -30,3 +30,11 @@ WHERE s.status = 'resolved'
 group by e.employee_id
 having count(s.ticket_id) > 4
 ;
+
+
+-- 4. Find all products that have never been ordered!
+SELECT p.product_name 
+FROM products p
+left join orderdetails od on od.product_id = p.product_id
+WHERE od.order_detail_id is NULL
+;
