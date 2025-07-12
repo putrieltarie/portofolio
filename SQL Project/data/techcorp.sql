@@ -11,3 +11,11 @@ order by total_order_amount desc
 limit 3
 ;
 
+-- 2. Average Order for Each Customers
+select c.first_name, 
+c.last_name,
+avg(o.total_amount) average_order
+from Customers as c
+join Orders o ON o.customer_id = c.customer_id
+group by c.customer_id
+;
