@@ -31,20 +31,26 @@ fviz_nbclust(customer_copy, kmeans, method = "wss")
 ```
 
 
+
+
 ```{R}
-#perform k-means clustering with k = 5 clusters
+#perform cluster
 km <- kmeans(customer_copy, centers = 5, nstart = 25)
 km
+
+# hasil cluster
+hasil_cluster = customer_copy
+hasil_cluster$cluster = as.factor(km$cluster)
+hasil_cluster
+
+tabel_cluster = table(hasil_cluster$cluster)
+tabel_cluster = as.data.frame(hasil_cluster)
+
+colnames(tabel_cluster)[colnames(tabel_cluster) == "Var1"] <- "Cluster"
+tabel_cluster
 ```
 
 ```{R}
-km <- kmeans(customer_copy, centers = 5, nstart = 25)
-km
-customer_copy$cluster = as.factor(km$cluster)
 
-tabel_cluster = table(customer_copy$cluster)
-tabel_cluster = as.data.frame(tabel_cluster)
 
-tabel_cluster
-colnames(tabel_cluster)[colnames(tabel_cluster) == "Var1"] <- "Cluster"
 ```
