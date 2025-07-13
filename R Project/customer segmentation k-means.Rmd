@@ -42,15 +42,13 @@ km
 hasil_cluster = customer_copy
 hasil_cluster$cluster = as.factor(km$cluster)
 hasil_cluster
-
-tabel_cluster = table(hasil_cluster$cluster)
-tabel_cluster = as.data.frame(hasil_cluster)
-
-colnames(tabel_cluster)[colnames(tabel_cluster) == "Var1"] <- "Cluster"
-tabel_cluster
 ```
 
 ```{R}
+# membuat tabel frekuensi jumlah customer pada setiap kluster
+tabel_frek_cluster = table(as.factor(km$cluster))
+tabel_frek_cluster = as.data.frame(tabel_frek_cluster)
 
-
+colnames(tabel_frek_cluster)[colnames(tabel_frek_cluster) == "Var1"] <- "Cluster"
+tabel_frek_cluster
 ```
