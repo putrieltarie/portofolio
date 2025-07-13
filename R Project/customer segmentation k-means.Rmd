@@ -17,7 +17,7 @@ customer_copy = as.data.frame(customer_copy)
 ```
 
 ```{R}
-# cek VIFs
+# cek VIFs --> asumsi non multikol terpenuhi (VIF <10)
 library(car) 
 model <- lm(customer_data$Age ~ customer_data$`Annual Income (k$)`+customer_data$`Spending Score (1-100)`, data = customer_copy)
 vif(model)
