@@ -104,3 +104,15 @@ for (k in 2:10) {
 sil_df <- data.frame(K = 2:10, Silhouette_Score = sil_scores)
 sil_df
 ```
+
+```{R}
+# Plot Sillhouette Coefficient
+library(ggplot2)
+ggplot(sil_df, aes(x = K, y = Silhouette_Score)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red", size = 3) +
+  ggtitle("Silhouette Score for Different K") +
+  xlab("Number of Clusters (K)") +
+  ylab("Average Silhouette Score") +
+  theme_minimal()
+```
