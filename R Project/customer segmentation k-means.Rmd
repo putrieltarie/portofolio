@@ -29,3 +29,10 @@ library(factoextra)
 library(cluster)
 fviz_nbclust(customer_copy, kmeans, method = "wss")
 ```
+
+
+```{R}
+#perform k-means clustering with k = 5 clusters
+km <- kmeans(customer_copy, centers = 5, nstart = 25)
+km
+```
