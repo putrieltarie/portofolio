@@ -9,3 +9,9 @@ head(Mall_Customers)
 customer_data = as.data.frame(Mall_Customers)
 head(customer_data)
 ```
+
+```{R}
+# ambil data tanpa kolom customer id
+customer_copy = customer_data[,c(4,5)]
+customer_copy = as.data.frame(customer_copy)
+```
