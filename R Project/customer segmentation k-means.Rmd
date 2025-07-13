@@ -85,3 +85,22 @@ ggplot(hasil_cluster, aes(x = `Annual Income (k$)`, y = `Spending Score (1-100)`
   theme_minimal()
 
 ```
+
+```{R}
+library(cluster)
+library(factoextra)
+
+# Loop untuk menghitung Silhouette Score dari k = 2 hingga k = 10
+# Diperoleh sillhoute paling tinggi = 5, maka jumlah kluster =5 merupakan jumlah yang tepat
+sil_scores <- c()
+
+for (k in 2:10) {
+  kmeans_result <- kmeans(customer_copy, centers = k, nstart = 25)
+  sil_score <- silhouette(kmeans_result$cluster, dist(customer_copy))
+  avg_sil <- mean(sil_score[, 3])  # Nilai rata-rata Silhouette
+  sil_scores <- c(sil_scores, avg_sil)
+}
+# Buat DataFrame untuk plotting
+sil_df <- data.frame(K = 2:10, Silhouette_Score = sil_scores)
+sil_df
+```
