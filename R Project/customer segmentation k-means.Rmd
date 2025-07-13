@@ -15,3 +15,10 @@ head(customer_data)
 customer_copy = customer_data[,c(4,5)]
 customer_copy = as.data.frame(customer_copy)
 ```
+
+```{R}
+# cek VIFs
+library(car) 
+model <- lm(customer_data$Age ~ customer_data$`Annual Income (k$)`+customer_data$`Spending Score (1-100)`, data = customer_copy)
+vif(model)
+```
