@@ -36,3 +36,15 @@ fviz_nbclust(customer_copy, kmeans, method = "wss")
 km <- kmeans(customer_copy, centers = 5, nstart = 25)
 km
 ```
+
+```{R}
+km <- kmeans(customer_copy, centers = 5, nstart = 25)
+km
+customer_copy$cluster = as.factor(km$cluster)
+
+tabel_cluster = table(customer_copy$cluster)
+tabel_cluster = as.data.frame(tabel_cluster)
+
+tabel_cluster
+colnames(tabel_cluster)[colnames(tabel_cluster) == "Var1"] <- "Cluster"
+```
