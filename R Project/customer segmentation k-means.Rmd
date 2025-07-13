@@ -3,3 +3,9 @@ library(readr)
 Mall_Customers <- read_csv("D:/WORK/REMOTE/portofolio/R Project/data/Mall_Customers.csv")
 head(Mall_Customers)
 ```
+
+```{R}
+# ubah file jadi customer_data
+customer_data = as.data.frame(Mall_Customers)
+head(customer_data)
+```
