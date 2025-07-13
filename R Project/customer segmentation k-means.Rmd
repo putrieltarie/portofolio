@@ -68,3 +68,20 @@ ggplot(tabel_frek_cluster, aes(x = reorder(Cluster, -Freq), y = Freq, fill = Clu
   scale_fill_brewer(palette = "Set2")  # Warna lebih menarik
 
 ```
+
+```{R}
+# Create scatter plot with clusters
+ggplot(hasil_cluster, aes(x = `Annual Income (k$)`, y = `Spending Score (1-100)`, color = cluster)) +
+  geom_point(size = 4, alpha = 0.7) +  # Plot data points
+  
+  # Add cluster centers correctly
+  geom_point(data = as.data.frame(km$centers), 
+             aes(x = `Annual Income (k$)`, y = `Spending Score (1-100)`),
+             color = "black", shape = 8, size = 5, inherit.aes = FALSE) + 
+  
+  labs(title = "K-Means Clustering of Customers",
+       x = "Annual Income (k$)",
+       y = "Spending Score (1-100)") +
+  theme_minimal()
+
+```
