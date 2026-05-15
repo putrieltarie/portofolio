@@ -25,3 +25,12 @@ hasil_consumergoods
 
 hasil_producergoods =HZ.test(x2, qqplot = TRUE)
 hasil_producergoods
+
+#--------
+
+#Uji kovarians
+library(biotools)
+y = x[, c(-1,-6)] #tempat dimana variabel pembeda kelompok disimpan
+f = as.factor(x$jenis)
+boxM(y,f)
+
