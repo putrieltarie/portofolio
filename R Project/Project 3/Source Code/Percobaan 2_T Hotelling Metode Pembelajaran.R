@@ -1,0 +1,94 @@
+library(readxl)
+mydata <- read_excel("D:/WORK/03 TOOLS/R/New Project/Data.xlsx", sheet = "model belajar")
+str(mydata)
+mydata$`Model Pembelajaran`<-as.factor(mydata$`Model Pembelajaran`)
+
+
+x = mydata
+x1 = x[which(x$`Model Pembelajaran`=="TPS"), ]
+x2 = x[which(x$`Model Pembelajaran`=="PBL"), ]
+
+# uji normalitas multivariat
+library(mvnTest)
+
+x1$`Model Pembelajaran` = NULL
+x2$`Model Pembelajaran` = NULL
+
+hasil_TPS = HZ.test(x1, qqplot = T)
+hasil_TPS
+hasil_PBL = HZ.test(x2, qqplot = T)
+hasil_PBL
+
+
+#Uji kovarians 
+library(biotools) 
+y = x[, -1]  
+f = as.factor(x$`Model Pembelajaran`) 
+boxM(y,f)
+
+
+# UJI T Hotelling
+
+x1 = as.matrix(x1) 
+x2 = as.matrix(x2) 
+
+p = ncol(x1) 
+n1 = nrow(x1) 
+n2 = nrow(x2) 
+
+n = n1+n2 
+n 
+
+xbar1 = colMeans(x1) 
+xbar2 = colMeans(x2) 
+
+dbar = xbar2 - xbar1 
+v = ((n1-1)*var(x1)+(n2-1)*var(x2))/(n-2) 
+
+a = 0.05 
+t2 = (n1*n2*t(dbar)%*%solve(v)%*%dbar)/n 
+test = as.vector(((n-p-1)*t2)/((n-2)*p)) 
+crit = qf(1-a, p, n-p-1) 
+pvalue = 1-pf(test,p, n-p-1) 
+result = list(test = test, critical = crit, p.value = pvalue, df1 = p, df2 
+              = n-p-1) 
+result #hasil
+
+
+# Uji satu - satu (t-test)
+
+# cek normalitas terlebih dahulu
+#normalitas untuk nilai KPM (y1) --> pada metode belajar TPS dan PBL
+shapiro.test(mydata$KPM[mydata$`Model Pembelajaran` == "TPS"])
+shapiro.test(mydata$KPM[mydata$`Model Pembelajaran` == "PBL"])
+
+#normalitas untuk nilai KKM (y2) --> --> pada metode belajar TPS dan PBL
+shapiro.test(mydata$KKM[mydata$`Model Pembelajaran` == "TPS"])
+shapiro.test(mydata$KKM[mydata$`Model Pembelajaran` == "PBL"])
+
+
+
+# cek dulu varians homogen atau tidak
+library(car)
+leveneTest(KPM ~ `Model Pembelajaran`, data = mydata)
+leveneTest(KKM ~ `Model Pembelajaran`, data = mydata)
+
+
+# t-test untuk varians homogen
+levels(mydata$`Model Pembelajaran`)
+mydata$`Model Pembelajaran` <- factor(
+  mydata$`Model Pembelajaran`,
+  levels = c("TPS", "PBL")
+)
+
+## t- test KPM
+t.test(KPM ~ `Model Pembelajaran`,
+       data = mydata,
+       #alternative = "greater",
+       var.equal = TRUE)
+
+## t-test KKM
+t.test(KKM ~ `Model Pembelajaran`,
+       #alternative = "greater",
+       data = mydata,
+       var.equal = TRUE)
